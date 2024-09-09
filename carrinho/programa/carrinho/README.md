@@ -4,4 +4,4 @@ No projeto é utilizado o microcontrolador Arduino Uno, por conta de sua versati
 
 Foi utilizado o framework PlatformIO para construção e compilação do código.
 
-O código principal se encontra no arquivo [./src/main.cpp](/src/main.cpp).
+O código principal se encontra no arquivo [./src/main.cpp](./src/main.cpp).
