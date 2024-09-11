@@ -1,22 +1,31 @@
 #include <Arduino.h>
-#include "Ultrassonico.h"
 #include "movimento.h"
-
-Ultrassonico US1;
 
 void setup() {
 	Serial.begin(9600);
-	US1.pinout(TRIG1, ECHO1);
-	// setupPins();
+	setupPins();
 }
 
 void loop() {
-	int dist = US1.distancia();
-	Serial.println(dist);
-	delay(100);
-	// frente(1000);
-	// costa(1000);
-	// direita(1000);
-	// esquerda(1000);
-	// parar(1000);
+	calcular_dist();
+	frente();
+	
+	if (dist_frente < 8 || dist_dir < 8 || dist_esq < 8){
+		if (dist_esq > dist_dir){
+			esquerda();
+			delay(10);
+		}
+		else {		
+			direita();
+			delay(10);
+		}
+	}
+
+	if (dist_frente > 30 && dist_dir > 30 && dist_esq > 30)	{
+		delay(4000);
+		while (true){
+			parar();
+		}
+	}
+	delay(200);
 }
