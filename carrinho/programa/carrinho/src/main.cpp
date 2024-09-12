@@ -10,22 +10,21 @@ void loop() {
 	calcular_dist();
 	frente();
 	
-	if (dist_frente < 8 || dist_dir < 8 || dist_esq < 8){
+	if (dist_frente < dist_parede || dist_dir < dist_parede || dist_esq < dist_parede){
 		if (dist_esq > dist_dir){
 			esquerda();
-			delay(10);
 		}
 		else {		
 			direita();
-			delay(10);
 		}
 	}
 
-	if (dist_frente > 30 && dist_dir > 30 && dist_esq > 30)	{
-		delay(4000);
-		while (true){
-			parar();
-		}
-	}
-	delay(200);
+	// if (dist_frente > dist_longe && dist_dir > dist_longe && dist_esq > dist_longe)	{
+	// 	delay(4000);
+	// 	while (true){
+	// 		parar();
+	// 		delay(10);
+	// 	}
+	// }
+	delay(50);
 }

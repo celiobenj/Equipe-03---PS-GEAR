@@ -1,6 +1,6 @@
 #include <Arduino.h>
+#include <Ultrasonic.h>
 #include "Motor.h"
-#include "Ultrassonico.h"
 
 //! PINS
 //MOTORES
@@ -25,24 +25,27 @@
 
 //! MISCELÂNEA
 #define MOTOR_OFF 0
-#define MAX_POT 80
+#define POT_A 75 
+#define POT_B 75 
 
 #define SENTIDO_CONTRA 2
 
-int dist_frente, dist_esq, dist_dir;
+#define TEMPO_90 1000
+
+float dist_frente, dist_esq, dist_dir;
+const float dist_parede = 10, dist_longe = 100;
 
 //! OBJETOS
 Motor motorA, motorB;
-Ultrassonico US_FRENTE, US_DIR, US_ESQ;
+
+Ultrasonic US_FRENTE(TRIG_FRENTE, ECHO_FRENTE);
+Ultrasonic US_DIR(TRIG_DIR, ECHO_DIR);
+Ultrasonic US_ESQ(TRIG_ESQ, ECHO_ESQ);
 
 //! FUNÇÕES
 void setupPins(){
     motorA.pinout(PWM_MotorA, IN1_MotorA, IN2_MotorA);
     motorB.pinout(PWM_MotorB, IN1_MotorB, IN2_MotorB);
-
-    US_FRENTE.pinout(TRIG_FRENTE, ECHO_FRENTE);
-	US_DIR.pinout(TRIG_DIR, ECHO_DIR);
-	US_ESQ.pinout(TRIG_ESQ, ECHO_ESQ);
 }
 
 void parar(){
@@ -51,29 +54,29 @@ void parar(){
 }
 
 void frente(){
-    motorA.write(MAX_POT);
-    motorB.write(MAX_POT);
+    motorA.write(POT_A);
+    motorB.write(POT_B);
 }
 
 void costa(){
-    motorA.write(MAX_POT, SENTIDO_CONTRA);
-    motorB.write(MAX_POT, SENTIDO_CONTRA);
+    motorA.write(POT_A, SENTIDO_CONTRA);
+    motorB.write(POT_B, SENTIDO_CONTRA);
 }
 
 void direita(){
-    motorA.write(MAX_POT);
-    motorB.write(MAX_POT, SENTIDO_CONTRA);
+    motorA.write(POT_A);
+    motorB.write(MOTOR_OFF);
 }
 
 void esquerda(){
-    motorA.write(MAX_POT, SENTIDO_CONTRA);
-    motorB.write(MAX_POT);
+    motorA.write(MOTOR_OFF);
+    motorB.write(POT_B);
 }
 
 void calcular_dist(){
-    dist_frente = US_FRENTE.distancia();
-	dist_dir = US_DIR.distancia();
-	dist_esq = US_ESQ.distancia();
+    dist_frente = US_FRENTE.read();
+	dist_dir = US_DIR.read();
+	dist_esq = US_ESQ.read();
 
     Serial.print("F:");
     Serial.print(dist_frente);
