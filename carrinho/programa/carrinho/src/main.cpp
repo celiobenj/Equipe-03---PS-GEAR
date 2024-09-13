@@ -26,9 +26,14 @@ void loop() {
 		} else {
 			esquerda_90();
 		}
+	} 
+
+	if (dist_frente < DIST_PAREDE && dist_dir < DIST_PAREDE && dist_esq < DIST_PAREDE){
+		direita_90();
+		delay(200);
 	}
 
 	delay(50);
 	para();
-	delay(50);
+	delay(40);
 }

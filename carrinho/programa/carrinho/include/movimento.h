@@ -29,8 +29,8 @@ double dist_frente, dist_esq, dist_dir;
 
 //! MISCELÂNEA
 #define MOTOR_OFF 0
-#define POT_D 135
-#define POT_E 135
+#define POT_D 130
+#define POT_E 120
 
 #define TEMPO_90 50
 
