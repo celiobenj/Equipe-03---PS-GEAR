@@ -4,27 +4,31 @@
 void setup() {
 	Serial.begin(9600);
 	setupPins();
+	delay(500);
 }
 
 void loop() {
 	calcular_dist();
-	frente();
 	
-	if (dist_frente < dist_parede || dist_dir < dist_parede || dist_esq < dist_parede){
-		if (dist_esq > dist_dir){
-			esquerda();
-		}
-		else {		
+	frente();
+
+	if (dist_dir < DIST_PAREDE || dist_esq < DIST_PAREDE){
+		if (dist_esq < dist_dir){
 			direita();
+		} else {
+			esquerda();
 		}
 	}
 
-	// if (dist_frente > dist_longe && dist_dir > dist_longe && dist_esq > dist_longe)	{
-	// 	delay(4000);
-	// 	while (true){
-	// 		parar();
-	// 		delay(10);
-	// 	}
-	// }
+	if (dist_frente < DIST_PAREDE + 2){
+		if (dist_esq < dist_dir){
+			direita_90();
+		} else {
+			esquerda_90();
+		}
+	}
+
+	delay(50);
+	para();
 	delay(50);
 }

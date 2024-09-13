@@ -14,7 +14,14 @@ class Motor {
             pinMode(pin2, OUTPUT);
         }
 
-        void write(int pot, int sent = 1){
+        void write(int pot){
+            int sent = 1;
+
+            if (pot < 0) {
+                pot = -pot;
+                sent = -1;
+            }
+
             analogWrite(pwm, pot);
 
             switch (sent){
@@ -23,7 +30,7 @@ class Motor {
                 digitalWrite(pin2, LOW);
                 break;
             
-            case 2:
+            case -1:
                 digitalWrite(pin1, LOW);
                 digitalWrite(pin2, HIGH);
                 break;
